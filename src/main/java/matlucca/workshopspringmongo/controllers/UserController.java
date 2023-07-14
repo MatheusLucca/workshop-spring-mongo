@@ -1,5 +1,6 @@
 package matlucca.workshopspringmongo.controllers;
 
+import matlucca.workshopspringmongo.dto.UserDTO;
 import matlucca.workshopspringmongo.entities.User;
 import matlucca.workshopspringmongo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,10 @@ public class UserController {
     @Autowired
     private UserService service;
     @GetMapping
-    public ResponseEntity<List<User>> findAll(){
-
-        return ResponseEntity.ok().body(service.findAll());
+    public ResponseEntity<List<UserDTO>> findAll(){
+        List<User> list = service.findAll();
+        List<UserDTO> listDTO = list.stream().map(x -> new UserDTO(x)).toList();
+        return ResponseEntity.ok().body(listDTO);
 
     }
 }
