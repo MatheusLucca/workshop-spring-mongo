@@ -1,6 +1,7 @@
 package matlucca.workshopspringmongo.controllers;
 
 import matlucca.workshopspringmongo.dto.UserDTO;
+import matlucca.workshopspringmongo.entities.Post;
 import matlucca.workshopspringmongo.entities.User;
 import matlucca.workshopspringmongo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +55,11 @@ public class UserController {
         obj.setId(id);
         obj = service.update(obj);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
     }
 }
