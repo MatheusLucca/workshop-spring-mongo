@@ -1,6 +1,7 @@
 package matlucca.workshopspringmongo.config;
 
 import matlucca.workshopspringmongo.dto.AuthorDTO;
+import matlucca.workshopspringmongo.dto.CommentDTO;
 import matlucca.workshopspringmongo.entities.Post;
 import matlucca.workshopspringmongo.entities.User;
 import matlucca.workshopspringmongo.repositories.PostRepository;
@@ -35,7 +36,12 @@ public class Instantiation implements CommandLineRunner {
         Post p1 = new Post(null, sdf.parse("21/03/2021"), "Partiu viagem", "Vou viajar para São Paulo. Abraços!", new AuthorDTO(u1));
         Post p2 = new Post(null, sdf.parse("23/03/2021"), "Bom dia", "Acordei feliz hoje!", new AuthorDTO(u1));
 
+        CommentDTO c1 = new CommentDTO("Boa viagem mano!", sdf.parse("21/03/2021"), new AuthorDTO(u2));
+        CommentDTO c2 = new CommentDTO("Aproveite!", sdf.parse("22/03/2021"), new AuthorDTO(u3));
+        CommentDTO c3 = new CommentDTO("Tenha um ótimo dia!", sdf.parse("23/03/2021"), new AuthorDTO(u2));
 
+        p1.getComments().addAll(List.of(c1, c2));
+        p2.getComments().addAll(List.of(c3));
 
         postRepository.saveAll(List.of(p1, p2));
 
